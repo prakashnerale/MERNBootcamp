@@ -15,6 +15,9 @@ app.get("/Signin", (req,res) => {
 app.get("/SignOut", (req,res) => {
     return res.send("SignOut Page")})
 
+app.get("/user", (req,res) => {
+ return res.send("Welcome user")})
+
 
 
 app.listen(port, () => 
