@@ -4,23 +4,26 @@ const app = express();
 
 const port = 8000;
 app.get("/", (req,res) => {
-   return res.send("Home Page")})
+   return res.send("Home Page")});
 
-app.get("/signup", (req,res) => {
-   return res.send("SignUp Page")})
+const admin =  (req,res) => {
+   return res.send("This is Admin DashBoard")};
 
-app.get("/Signin", (req,res) => {
-    return res.send("SignIn Page")})
+const isAdmin = (req, res, next) =>{
+   console.log("isAdmin is running");
+   next();
+   }
 
-app.get("/SignOut", (req,res) => {
-    return res.send("SignOut Page")})
+const isloggedIn = (req, res, next) =>{
+   console.log("isloggedIn is running and user is loggedIn");
+   next();
+   }
 
-app.get("/user", (req,res) => {
- return res.send("Welcome user")})
+ app.get("/admin", isAdmin, isloggedIn, admin);//here isAdmin is middle ware which should define before.
 
+ 
 
-
-app.listen(port, () => 
+ app.listen(port, () => 
    console.log("Server is up and Running..."))
 
 

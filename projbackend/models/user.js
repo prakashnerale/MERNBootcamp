@@ -5,7 +5,7 @@ const uuidv1 = require('uuid/v1');
 var userSchema = new Schema({
     name:{
         type: String,
-        require: true,
+        required: true,
         maxlength: 32,
         trim: true
     },
@@ -18,7 +18,7 @@ var userSchema = new Schema({
     email: {
         type:String,
         trim: true,
-        require: true,
+        required: true,
         unique: true
     },
     userinfo: {
@@ -57,7 +57,7 @@ var userSchema = new Schema({
 
     authenticate: function(plainpassword){
         return this.securePassword(plainpassword) === this.encry_password(plainpassword)
-        
+
     },
       securePassword: function(plainpassword){
           if (!password) return "";
