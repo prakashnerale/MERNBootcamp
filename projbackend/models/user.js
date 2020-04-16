@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const crypto = require('crypto');
 const uuidv1 = require('uuid/v1');
 
-var userSchema = new Schema({
+const userSchema = mongoose.Schema({
     name:{
         type: String,
         required: true,
@@ -52,7 +52,7 @@ var userSchema = new Schema({
         return  this._password
     })
 
-  userSchema.method = {
+  userSchema.methods= {
 
 
     authenticate: function(plainpassword){
@@ -60,7 +60,7 @@ var userSchema = new Schema({
 
     },
       securePassword: function(plainpassword){
-          if (!password) return "";
+          if (!plainpassword) return "";
           try{
               return crypto.creatHmac('sha256', this.salt)
               .update(plainpassword)
@@ -73,4 +73,4 @@ var userSchema = new Schema({
   }
 
   
-  module.exports = mongoose.model("User", userSchema)
+  module.exports = mongoose.model("User", userSchema);
