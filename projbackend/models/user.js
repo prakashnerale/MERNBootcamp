@@ -42,35 +42,34 @@ const userSchema = mongoose.Schema({
   });
 
 
-  userSchema.virtual("password")
-    .set(function(password){
-        this._password =password
-        this.salt = uuidv1();
-        this.encry_password = securePassword(password);
-    })
-    .get(function(){
-        return  this._password
-    })
+  userSchema
+  .virtual("password")
+  .set(function(password) {
+    this._password = password;
+    this.salt = uuidv1();
+    this.encry_password = this.securePassword(password);
+  })
+  .get(function() {
+    return this._password;
+  });
 
-  userSchema.methods= {
+userSchema.methods = {
+  autheticate: function(plainpassword) {
+    return this.securePassword(plainpassword) === this.encry_password;
+  },
 
-
-    authenticate: function(plainpassword){
-        return this.securePassword(plainpassword) === this.encry_password(plainpassword)
-
-    },
-      securePassword: function(plainpassword){
-          if (!plainpassword) return "";
-          try{
-              return crypto.creatHmac('sha256', this.salt)
-              .update(plainpassword)
-              .digest('hex');
-
-          } catch (err){
-              return "";
-          }
-      }
+  securePassword: function(plainpassword) {
+    if (!plainpassword) return "";
+    try {
+      return crypto
+        .createHmac("sha256", this.salt)
+        .update(plainpassword)
+        .digest("hex");
+    } catch (err) {
+      return "";
+    }
   }
+};
 
   
   module.exports = mongoose.model("User", userSchema);

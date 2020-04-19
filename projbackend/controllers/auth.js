@@ -15,7 +15,11 @@ exports.signup = (req, res)=>{
               err:"Not able to save in DB"
           })
       }
-      res.json(user);
+      res.json({
+        name: user.name,
+        email: user.email,
+        id: user._id
+      });
   });
 
 };
