@@ -1,7 +1,7 @@
 var express = require('express') //importing router from express library
 var router = express.Router()
 const { check, validationResult } = require('express-validator');
-const {signout, signup} = require("../controllers/auth");//controller(taking the controller file auth.js from the folder)
+const {signout, signup} = require("../controllers/authController");//controller(taking the controller file auth.js from the folder)
 
 
 router.post("/signup",[
